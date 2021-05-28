@@ -25,8 +25,8 @@
         
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
 
-            <h1 class="text-white">ICanSaveApp API  </h1>
-            <p>
+            <h1 style="color:#fff">ICanSaveApp API  </h1>
+            <p style="color:#555">
             Click <a href="https://www.icansaveapp.com">here</a> for the website.
             </p>
 
