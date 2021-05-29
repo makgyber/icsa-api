@@ -14,6 +14,7 @@ class User extends Authenticatable
 
     protected $table = 'isv_users';
     protected $primaryKey = 'ID';
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +25,12 @@ class User extends Authenticatable
         'user_login',
         'user_pass',
         'user_email',
-        'api_token'
+        "user_nicename",
+        "user_url",
+        "user_activation_key",
+        "user_status",
+        "user_registered",
+        "display_name"
     ];
 
     /**
@@ -33,13 +39,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'user_login',
         'user_pass',
-        'remember_token',
-        "user_nicename",
         "user_url",
         "user_activation_key",
         "user_status",
+        "user_registered"
     ];
 
     /**
@@ -48,7 +52,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'user_registered' => 'datetime',
     ];
 
     public function getAuthPassword()
@@ -59,5 +63,18 @@ class User extends Authenticatable
     public function getAuthIdentifierName()
     {
         return $this->user_email;
+    }
+
+    public function usermetas() {
+        return $this->hasMany(UserMeta::class,'user_id','ID');
+    }
+
+    public function profile() {
+        $usermetas = $this->usermetas()->whereRaw('substring(meta_key,1,1) != "_"' )->get();
+        $extras = [];
+        foreach($usermetas as $usermeta) {
+            $extras[$usermeta['meta_key']] = $usermeta['meta_value'];
+        }
+        return $extras;
     }
 }

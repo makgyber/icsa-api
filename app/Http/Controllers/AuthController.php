@@ -7,6 +7,9 @@ use App\Traits\ApiResponser;
 use Illuminate\Validation\ValidationException;
 use MikeMcLin\WpPassword\Facades\WpPassword;
 use App\Models\User;
+use App\Models\UserMeta;
+use App\Models\CreateUser;
+use App\Http\Requests\RegistrationRequest;
 
 class AuthController extends Controller
 {
@@ -30,11 +33,29 @@ class AuthController extends Controller
                 'token' => $user->createToken($request->device_name)->plainTextToken,
                 'user' => $user
             ]
-            );
+        );
+    }
+
+    public function register(RegistrationRequest $request) {
+
+        $preValidated = $request->validated();
+        $userCreator = new CreateUser();
+        $user = $userCreator->create($preValidated['user']);
+
+        foreach( $preValidated['user_meta'] as $key => $value ) {
+            UserMeta::create([
+                'user_id' => $user->ID,
+                'meta_key' => $key,
+                'meta_value' => $value
+            ]);
+        }
+
+        $token = $user->createToken($user->user_nicename)->plainTextToken;
+
+        return $this->success(['user' => $user, 'token' => $token]);
     }
 
     public function logout(Request $request) {
-
         $request->user()->tokens()->delete();
         return $this->success('Logout success');
     }
