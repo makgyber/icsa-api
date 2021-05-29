@@ -14,11 +14,12 @@ class UserController extends Controller
     use ApiResponser;
 
     public function profile(Request $request) {
-
+        //init accounts
+        $request->user()->accounts;
         return $this->success([
             'base' => $request->user(), 
             'profile' => $request->user()->profile(),
-            'accounts' => $request->user()->accounts,
+            'deposits' => $request->user()->deposits()
         ]);
 
     }
