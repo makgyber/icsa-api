@@ -16,7 +16,6 @@ class CreateUser
         ])->validate();
         
         $input['user_pass'] = WpPassword::make($input['user_pass']);
-        // $input['user_nicename'] = str_replace(['.','@'], ['-'], $input['user_nicename']);
  
         return User::create($input);
     }

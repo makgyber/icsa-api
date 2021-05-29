@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Account;
+
 use App\Models\UserMeta;
 use App\Traits\ApiResponser;
 
@@ -13,7 +15,11 @@ class UserController extends Controller
 
     public function profile(Request $request) {
 
-        return $this->success(['base' => $request->user(), 'profile' => $request->user()->profile()]);
+        return $this->success([
+            'base' => $request->user(), 
+            'profile' => $request->user()->profile(),
+            'accounts' => $request->user()->accounts,
+        ]);
 
     }
 

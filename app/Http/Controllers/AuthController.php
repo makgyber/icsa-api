@@ -7,6 +7,7 @@ use App\Traits\ApiResponser;
 use Illuminate\Validation\ValidationException;
 use MikeMcLin\WpPassword\Facades\WpPassword;
 use App\Models\User;
+use App\Models\Account;
 use App\Models\UserMeta;
 use App\Models\CreateUser;
 use App\Http\Requests\RegistrationRequest;
@@ -42,6 +43,16 @@ class AuthController extends Controller
         $userCreator = new CreateUser();
         $user = $userCreator->create($preValidated['user']);
 
+        //account
+        Account::create([
+            "created_date" => $user->user_registered,
+            "balance"  => 0,
+            "user_id"  =>  $user->ID  ,
+            "account_type" => 'Savings',
+            "status"    => 'Active'
+        ]);
+
+        // usermeta
         foreach( $preValidated['user_meta'] as $key => $value ) {
             UserMeta::create([
                 'user_id' => $user->ID,
