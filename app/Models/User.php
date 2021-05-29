@@ -82,5 +82,13 @@ class User extends Authenticatable
         return $this->hasMany(Account::class,'user_id','ID');
     }
 
+    public function deposits() {
+        return $this->hasMany(Deposit::class,'user_id','ID');
+    }
+
+    public function withdrawals() {
+        return $this->hasMany(Withdrawal::class,'user_id','ID');
+    }
+
     
 }
