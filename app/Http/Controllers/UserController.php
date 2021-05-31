@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Account;
-
+use App\Models\Deposit;
+use App\Models\Withdrawal;
 use App\Models\UserMeta;
 use App\Traits\ApiResponser;
 
@@ -20,8 +21,7 @@ class UserController extends Controller
         $request->user()->withdrawals;
         return $this->success([
             'base' => $request->user(), 
-            'profile' => $request->user()->profile(),
-            'deposits' => $request->user()->deposits()
+            'profile' => $request->user()->profile()
         ]);
 
     }
