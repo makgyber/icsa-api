@@ -19,6 +19,7 @@ class UserController extends Controller
         $request->user()->accounts;
         $request->user()->deposits;
         $request->user()->withdrawals;
+        $request->user()->transactions;
         return $this->success([
             'base' => $request->user(), 
             'profile' => $request->user()->profile()
