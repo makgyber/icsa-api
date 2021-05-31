@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Withdrawal;
+use App\Http\Requests\WithdrawRequest;
+
 use Illuminate\Http\Request;
 use App\Traits\ApiResponser;
 
@@ -10,8 +12,14 @@ class WithdrawalController extends Controller
 {
 	use ApiResponser;
 
-    public function withdraw() {
+    public function withdraw(WithdrawRequest $request) {
+		$data = $request->validated();
+		$data['user_id'] = request()->user()->ID;
+
+		$withdrawal = Withdrawal::create($data);
         
+        return $this->success(['withdrawal'  => $withdrawal]);
+
     }
 
     public function banks() {

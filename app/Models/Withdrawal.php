@@ -20,6 +20,7 @@ class Withdrawal extends Model
         "account_id"          ,
         "user_id"             ,
         "status"              ,
+        'submitted_date'
     ];
 
     protected $casts = [
