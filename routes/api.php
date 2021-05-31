@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WithdrawalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,4 @@ Route::middleware('auth:sanctum')->get('/trans/userAccountInformation', [UserCon
 
 Route::middleware('auth:sanctum')->post('/deposits/submitDeposit', [DepositController::class, 'deposit']);
 Route::middleware('auth:sanctum')->post('/trans/withdrawal', [WithdrawalController::class, 'withdraw']);
+Route::get('/trans/banks', [WithdrawalController::class, 'banks']);
