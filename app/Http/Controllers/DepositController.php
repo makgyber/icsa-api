@@ -17,7 +17,7 @@ class DepositController extends Controller
             $name = $file->getClientOriginalName();
   
             $data['user_id'] = request()->user()->ID;
-            $data['photo'] =  env('APP_URL') . str_replace('public/', '', $path);
+            $data['photo'] =  env('APP_URL') . str_replace('public/', 'storage/', $path);
             //store your file into directory and db
             Deposit::create($data);
                
