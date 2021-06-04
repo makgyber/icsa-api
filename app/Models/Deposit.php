@@ -20,6 +20,7 @@ class Deposit extends Model
         "user_id"        ,
         "type"          , 
         "status"         ,
+        'submitted_date'
     ];
 
     protected $casts = [
