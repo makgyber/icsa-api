@@ -38,7 +38,7 @@ class DepositRequest extends FormRequest
             "amount"         => $input['amount'],
             "account_id"     => $input['account_id' ],
             "type"           => $input['type'],
-            'submitted_date' => $now,
+            'submitted_date' => $now->format('Y-m-d H:i:s'),
             'status'        => 'Pending'
         ];
     }
